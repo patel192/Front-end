@@ -6,23 +6,52 @@ import{ useNavigate } from 'react-router-dom';
 export const Login = () => {
    const Navigate = useNavigate()
    const {register,handleSubmit,formState:{errors}} = useForm();
-   const SubmitHandler = async (data) =>{
-      try{
-          const res = await axios.post("/user/login",data);
-          if(res.status == 201){
-            alert("Login Success");
-            localStorage.setItem("id",res.data.data._id);
-            localStorage.setItem("role",res.data.data.roleId.name);
-            if(res.data.data.roleId.name === "User"){
-               Navigate("/dashboard")
-            }else if(res.data.data.roleId.name === "Admin") {
-                Navigate("/admin-dashboard")
-            }
+   const SubmitHandler = async (data) => {
+      console.log("Login form submitted with data:", data);
+      try {
+          const res = await axios.post("user/login", data);
+          console.log("Response received:", res);
+  
+          // Debugging: Log response data
+          console.log("Response Data:", res.data);
+  
+          // Check if response is successful
+          if (res.status >= 200 && res.status < 300) {
+              alert("Login Success");
+  
+              // Debugging: Check if res.data contains necessary fields
+              console.log("User ID:", res.data?.data?._id);
+              console.log("Role:", res.data?.data?.roleId?.name);
+  
+              // Ensure data exists before storing
+              if (res.data?.data?._id && res.data?.data?.roleId?.name) {
+                  localStorage.setItem("id", res.data.data._id);
+                  localStorage.setItem("role", res.data.data.roleId.name);
+  
+                  // Navigate to appropriate dashboard
+                  if (res.data.data.roleId.name === "User") {
+                      Navigate("/dashboard");
+                  } else if (res.data.data.roleId.name === "Admin") {
+                      Navigate("/admin-dashboard");
+                  }
+              } else {
+                  console.error("Invalid response structure, missing required fields.");
+                  alert("Login failed: Missing user details in response.");
+              }
+              return;
           }
-      }catch(error){
-         alert("Login Failed");
+      } catch (error) {
+          console.error("Login error:", error);
+  
+          if (error.response) {
+              alert("Login Failed: " + error.response.data.message);
+          } else {
+              alert("Login Failed: Server is unreachable");
+          }
       }
-   }
+  };
+  
+  
    const ErrorHandler = {
       emailHandler:{
          required:{

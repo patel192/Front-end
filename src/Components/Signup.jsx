@@ -14,19 +14,23 @@ export const Signup = () => {
 
   const submitHandler = async (data) => {
     try {
-      data.roleId = "67d7d02a89178027182f3ab1";
-      const res = await axios.post("/user", data);
-
+      console.log("Form Data Before Sending:", data); // Debugging
+  
+      const res = await axios.post("/user", data); // Correct API path
+  
       if (res.status === 201) {
         alert("User created successfully");
+        console.log(res.data);
         navigate("/login");
       } else {
         alert("User not created");
       }
     } catch (error) {
+      console.error("Signup Error:", error);
       alert("Signup Failed");
     }
   };
+  
 
   const ErrorHandler = {
     NameHandler: {
@@ -116,6 +120,28 @@ export const Signup = () => {
                 {...register("password", ErrorHandler.PasswordHandler)}
               />
               {errors.password?.message}
+            </div>
+          </div>
+          <div class="Role-details">
+            <input type="radio" name="role-id" id="dot-1" value="67da4c20d58329a643242b24" {...register("roleId", {
+                    required: "Role selection is required",
+                  })} />
+            <input type="radio" name="role-id" id="dot-2" value="67da4c13d58329a643242b22" {...register("roleId", {
+                    required: "Role selection is required",
+                  })}
+ />
+            
+            <span class="Role-title">Role</span>
+            <div class="category">
+              <label for="dot-1">
+                <span class="dot one"></span>
+                <span class="gender">User</span>
+              </label>
+              <label for="dot-2">
+                <span class="dot two"></span>
+                <span class="gender">Admin</span>
+              </label>
+              
             </div>
           </div>
 
