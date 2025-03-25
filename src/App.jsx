@@ -6,7 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import { Signup } from "./Components/Signup";
 import { Login } from "./Components/Login";
 import axios from "axios";
-import { Userdashboard } from "./Components/user/Userdashboard";
+import { UserDashboard } from "./Components/user/UserDashboard";
 import { AdminDashboard } from "./Components/Admin/AdminDashboard";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/dashboard" element={<Userdashboard />}></Route>
+        <Route path="/dashboard" element={<UserDashboard />}></Route>
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
         
         

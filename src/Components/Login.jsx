@@ -32,7 +32,7 @@ export const Login = () => {
                   if (res.data.data.roleId.name === "User") {
                       Navigate("/dashboard");
                   } else if (res.data.data.roleId.name === "Admin") {
-                      Navigate("/admin-dashboard");
+                      Navigate("/admindashboard");
                   }
               } else {
                   console.error("Invalid response structure, missing required fields.");
