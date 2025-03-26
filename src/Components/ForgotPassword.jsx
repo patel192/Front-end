@@ -32,7 +32,7 @@ export const ForgotPassword = () => {
         <div class="title">Forgot Password</div>
         <form onSubmit={handleSubmit(SubmitHandler)}>
           <div class="field">
-            <input type="text" {...register("email")} />
+            <input type="text" {...register("email")} required />
             <label>Email Address</label>
           </div>
 
