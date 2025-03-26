@@ -93,7 +93,7 @@ export const Login = () => {
                   <label for="remember-me">Remember me</label>
                </div>
                <div class="pass-link">
-                  <a href="#">Forgot password?</a>
+                  <a href="/forgotpassword">Forgot password?</a>
                </div>
             </div>
             <div class="field">
